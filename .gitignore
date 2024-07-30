@@ -234,3 +234,6 @@ tools/LinuxOneShot/TGS_Logs
 
 # Common build tooling
 !/tools/build
+/config/trusted_players.txt
+/config/admins.txt
+/config/maps.txt
