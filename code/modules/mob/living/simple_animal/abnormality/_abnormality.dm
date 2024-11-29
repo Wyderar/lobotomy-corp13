@@ -60,6 +60,8 @@
 	var/success_boxes = null
 	/// How much PE you have to produce for neutral result, if not null or 0.
 	var/neutral_boxes = null
+	/// Check to see if the abnormality hates goods or can't get them.
+	var/good_hater = FALSE
 	/// List of ego equipment datums
 	var/list/ego_list = list()
 	/// EGO Gifts
@@ -93,6 +95,9 @@
 	var/portrait = "UNKNOWN"
 	var/core_icon = ""
 	var/core_enabled = TRUE
+
+	/// If an abnormality should not be possessed even if possessibles are enabled, mainly for admins.
+	var/do_not_possess = FALSE
 
 	// secret skin variables ahead
 
@@ -234,8 +239,7 @@
 	if(!(status_flags & GODMODE))
 		to_chat(user, span_notice("Now isn't the time!"))
 		return
-	var/obj/item/chemical_extraction_attachment/attachment = locate() in datum_reference.console.contents
-	if(!attachment)
+	if(datum_reference.console.mechanical_upgrades["abnochem"] == 0)
 		to_chat(user, span_notice("This abnormality's cell is not properly equipped for substance extraction."))
 		return
 	if(world.time < chem_cooldown_timer)

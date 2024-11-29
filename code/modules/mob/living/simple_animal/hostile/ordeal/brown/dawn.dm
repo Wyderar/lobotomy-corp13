@@ -186,9 +186,9 @@
 
 /mob/living/simple_animal/hostile/ordeal/sin_gluttony/AttackingTarget()
 	. = ..()
-	if(. && isliving(target))
+	if(. && isliving(target) && SSmaptype.maptype != "limbus_labs")
 		var/mob/living/L = target
-		if(L.stat != DEAD && SSmaptype.maptype != "limbus_labs")
+		if(L.stat != DEAD)
 			if(L.health <= HEALTH_THRESHOLD_DEAD && HAS_TRAIT(L, TRAIT_NODEATH))
 				devour(L)
 		else
@@ -211,7 +211,7 @@
 			part.dismember()
 			QDEL_NULL(part)
 			new /obj/effect/gibspawner/generic/silent(get_turf(C))
-		if(C.bodyparts.len <= 1)
+		if(length(C.bodyparts) <= 1)
 			C.gib()
 			return
 	return

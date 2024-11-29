@@ -19,7 +19,7 @@
 		ABNORMALITY_WORK_INSTINCT = list(40, 40, 45, 50, 50),
 		ABNORMALITY_WORK_INSIGHT = list(30, 35, 35, 40, 45),
 		ABNORMALITY_WORK_ATTACHMENT = list(30, 35, 35, 40, 45),
-		ABNORMALITY_WORK_REPRESSION = list(0, 0, 20, 25, 30),
+		ABNORMALITY_WORK_REPRESSION = list(0, 0, 45, 50, 50),
 	)
 	damage_coeff = list(RED_DAMAGE = 0.8, WHITE_DAMAGE = 1.2, BLACK_DAMAGE = 0.4, PALE_DAMAGE = 1.5)
 	melee_damage_lower = 35
@@ -249,6 +249,7 @@
 	faction = list("hostile")
 	is_flying_animal = TRUE
 	density = FALSE
+	status_flags = MUST_HIT_PROJECTILE // Lets them be shot
 	speak_emote = list("screeches")
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"
@@ -273,5 +274,9 @@
 			B = new /obj/effect/decal/cleanable/blood(get_turf(src))
 			B.bloodiness = 100
 	return ..()
+
+/mob/living/simple_animal/hostile/nosferatu_mob/OpenFire(atom/A)
+	visible_message(span_danger("<b>[src]</b> flies around, seemingly aiming for [A]!"))
+	ranged_cooldown = world.time + ranged_cooldown_time
 
 #undef NOSFERATU_BANQUET_COOLDOWN
